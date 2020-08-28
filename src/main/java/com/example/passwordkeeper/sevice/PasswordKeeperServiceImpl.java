@@ -39,7 +39,7 @@ public class PasswordKeeperServiceImpl implements PasswordKeeperService{
     }
 
     @Override
-    public List<PasswordKeeper> getAllSavedPassword(String userName) {
+    public List<String> getAllSavedPassword(String userName) {
 
         User user = userRepository.findUserByEmail(userName);
 

@@ -1,6 +1,7 @@
 package com.example.passwordkeeper.controller;
 
 import com.example.passwordkeeper.dto.*;
+import com.example.passwordkeeper.exception.UserNotFoundException;
 import com.example.passwordkeeper.model.PasswordKeeper;
 import com.example.passwordkeeper.model.User;
 import com.example.passwordkeeper.sevice.PasswordKeeperService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -62,17 +64,39 @@ public class UserController {
     }
 
    @GetMapping("/app/sites/list")
-   List<PasswordKeeper> getAllSavedPassword(){
+   List<PasswordSavedResponseDto> getAllSavedPassword(){
 
        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+//
        if (!(authentication instanceof AnonymousAuthenticationToken)) {
 
            String userName= authentication.getName();
 
-           return passwordKeeperService.getAllSavedPassword(userName);
+           List<String> keepers = passwordKeeperService.getAllSavedPassword(userName);
+
+
+           List<PasswordSavedResponseDto> list = new ArrayList<>();
+
+           for(String st : keepers){
+
+               System.out.println(st);
+               PasswordSavedResponseDto passwordSavedResponseDto = new PasswordSavedResponseDto();
+
+               String[] splitStr = st.split(",");
+//               for (String str : splitStr)
+//                   System.out.println(str);
+
+               passwordSavedResponseDto.setWebsite(splitStr[2]);
+               passwordSavedResponseDto.setUserName(splitStr[0]);
+               passwordSavedResponseDto.setPassword(splitStr[1]);
+
+               list.add(passwordSavedResponseDto);
+           }
+
+           return list;
+
        }
 
-        return null;
+        throw new UserNotFoundException("User Not Found");
    }
 }

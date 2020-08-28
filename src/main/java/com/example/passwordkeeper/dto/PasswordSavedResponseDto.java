@@ -1,5 +1,10 @@
 package com.example.passwordkeeper.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class PasswordSavedResponseDto {
 
     private String userName;
