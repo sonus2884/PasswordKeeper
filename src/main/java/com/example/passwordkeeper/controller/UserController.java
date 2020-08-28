@@ -25,6 +25,7 @@ public class UserController {
     @Autowired
     private PasswordKeeperService passwordKeeperService;
 
+    //Registration API...
     @PostMapping("/app/user")
     ResponseDto<UserResponseDto> createUser(@RequestBody UserDto userDto) {
 
@@ -35,7 +36,7 @@ public class UserController {
         );
     }
 
-
+    // Login API...
     @PostMapping("/app/user/auth")
     ResponseDto<UserResponseDto>loginUser(@RequestBody UserDto userDto){
 
@@ -47,6 +48,7 @@ public class UserController {
         );
     }
 
+    // Saved Password Api..
     @PostMapping("/app/auth")
     String savePassword(@RequestBody PasswordSavedDto passwordSavedDto){
 
@@ -60,9 +62,10 @@ public class UserController {
 
             return passwordKeeperService.savePassword(passwordSavedDto,userName);
         }
-        return "User Not Found";
+       throw new UserNotFoundException("User Not Found");
     }
 
+    // View All Saved Password API..
    @GetMapping("/app/sites/list")
    List<PasswordSavedResponseDto> getAllSavedPassword(){
 

@@ -1,4 +1,4 @@
-package com.example.passwordkeeper.sevice;
+package com.example.passwordkeeper.sevice.security;
 
 import com.example.passwordkeeper.model.User;
 import com.example.passwordkeeper.repository.UserRepository;

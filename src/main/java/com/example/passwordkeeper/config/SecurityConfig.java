@@ -1,6 +1,6 @@
 package com.example.passwordkeeper.config;
 
-import com.example.passwordkeeper.sevice.CustomUserDetailService;
+import com.example.passwordkeeper.sevice.security.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
